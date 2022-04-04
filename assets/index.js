@@ -6,13 +6,40 @@ function fetchWeather(city) {
         city +
         "&units=metric&appid=" +
         apiKey)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (json) {
-            // Use this data inside of `json` to do DOM manipulation
-            console.log(json)
-
-        })
+    
+        .then((response) => response.json())
+        .then((data) => this.displayWeather(data))
+        
 }
-fetchWeather('Melbourne, AU')
+// Use this data inside of `json` to do DOM manipulation
+// console.log(json)
+function displayWeather (data){ 
+    const { name } = data;
+    const { icon, description } = data.weather[0];
+    const { temp, humidity } = data.main;
+    const { speed } = data.wind;
+    const { country } = data.sys;
+document.querySelector('.city')
+document.querySelector('.icon').src =
+    "https://openweathermap.org/img/wn/" + icon + ".png"
+document.querySelector('.temp').innerText = temp + "°C"
+document.querySelector('.description').innerText = description
+document.querySelector('.humidity').innerText =
+    "Humidity: " + humidity + "%"
+document.querySelector('.wind').innerText = "Wind Speed: " + speed + "km/h";
+document.querySelector('.country').innerText = " Country Code " + country
+document.querySelector(".weather").classList.remove("loading")
+document.body.style.backgroundImage =
+    "url('https://source.unsplash.com/2000x1000/?" + name + "')"
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -125,11 +125,11 @@ body {
     margin-top: -65px;
   }
   
-  .weather.loading {
+   /* .weather.loading {
     visibility: hidden;
     max-height: 20px;
-    position: relative;
-  }
+    position: relative; */
+  } 
   
   .city {
     margin-bottom: 18px;
@@ -148,12 +148,12 @@ body {
     display: table-row;
     line-height: 40px;
   }
-  .weather.loading:after {
+  /* .weather.loading:after {
     visibility: visible;
     content: "Loading...";
     color: white;
     position: absolute;
     top: 0;
     left: 20px;
-  }
+  } */
   
