@@ -70,7 +70,7 @@ body {
     outline-width: 10px;
     cursor: pointer;
     transition: 0.2s ease-in-out;
-    margin-top: 80px;
+    margin-top: 30px;
   }
   .cities button {
     border: none;
@@ -92,17 +92,14 @@ body {
     float: right;
   }
   
-  h4 {
+  /* h4 {
     margin-left: -140px;
     margin-top: 6px;
     line-height: 5px;
     cursor: pointer;
-  }
+  } */
   
-  h1.temp {
-    margin: 0;
-  }
-  
+    
   .flex {
     display: flex;
     align-items: center;
