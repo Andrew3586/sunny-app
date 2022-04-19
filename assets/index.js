@@ -1,4 +1,4 @@
-let favourites = [];
+let favourites = JSON.parse(localStorage.getItem('city')) || [];
 
 "https://api.openweathermap.org/data/2.5/weather?q=&appid=9b1f679911ac53cd9b7ab5c58e255fce"
 const apiKey = "9b1f679911ac53cd9b7ab5c58e255fce"
@@ -11,7 +11,15 @@ function fetchWeather(city) {
         apiKey)
 
         .then((response) => response.json())
-        .then((data) => displayWeather(data))
+        .then((data) => {
+
+            if (favourites.length) {
+                let txt = favourites.map(w => myFunction(w)).join(' ');
+                document.querySelector(".cities").innerHTML = txt;
+            }
+
+            displayWeather(data)
+        })
 
 
 }
@@ -40,7 +48,7 @@ function displayWeather(data) {
 let getWeatherByCity = function () {
     const city = document.querySelector('.search-bar').value
     fetchWeather(city)
-
+    localStorage.setItem('city', JSON.stringify(favourites));
 }
 
 document
@@ -51,9 +59,9 @@ document
         if (favourites.length < 5) {
             if (!favourites.includes(city)) {
                 favourites.push(city);
-                favourites.forEach(myFunction);
+                txt = favourites.map(w => myFunction(w)).join(' ');
                 document.querySelector(".cities").innerHTML = txt;
-                console.log(favourites.length)
+                localStorage.setItem('city', JSON.stringify(favourites));
             } else {
                 result = 'NOT positive'
                 alert("You have already entered a city name")
@@ -64,24 +72,26 @@ document
             alert("You have reached your favourites limit")
         }
 
-        function myFunction(value) {
-            txt += `<h4 onclick='fetchCityWeather(event,"${value}")'> ${value} <button onclick='deleteCity(event,"${value}")'>x</button></h4> `;
-        }
+
 
     });
 
+function myFunction(value) {
+    return `<h4 onclick='fetchCityWeather(event,"${value}")'> ${value} <button onclick='deleteCity(event,"${value}")'>x</button></h4> `;
+}
+
 function deleteCity(event, city) {
     favourites = favourites.filter((tempCity) => tempCity != city)
-    console.log(favourites)
-    event.target.parentNode.remove()
+    localStorage.setItem('city', JSON.stringify(favourites));
+   event.target.parentNode.remove()
 
 }
 
 function fetchCityWeather(event, cityName) {
     // if (event.target.tagName === "H4") {
-       // let city = event.target.innerText
-       document.querySelector('.search-bar').value = cityName
-        fetchWeather(cityName)
+    // let city = event.target.innerText
+    document.querySelector('.search-bar').value = cityName
+    fetchWeather(cityName)
     // }
 
     // const index = favourites.indexOf(5);
@@ -97,9 +107,11 @@ document
     .addEventListener("keyup", function (event) {
         if (event.key == "Enter") {
             getWeatherByCity()
+
         }
+        // localStorage.setItem('city', JSON.stringify(favourites));
     })
 
-    
+
 fetchWeather("Melbourne, Au")
 
