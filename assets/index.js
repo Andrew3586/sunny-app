@@ -23,8 +23,7 @@ function fetchWeather(city) {
 
 
 }
-// Use this data inside of `json` to do DOM manipulation
-// console.log(json)
+
 function displayWeather(data) {
     const { name } = data;
     const { icon, description } = data.weather[0];
@@ -64,7 +63,7 @@ document
                 localStorage.setItem('city', JSON.stringify(favourites));
             } else {
                 result = 'NOT positive'
-                alert("You have already entered a city name")
+                alert("You have already entered the same city name")
             }
         }
         else {
@@ -88,16 +87,10 @@ function deleteCity(event, city) {
 }
 
 function fetchCityWeather(event, cityName) {
-    // if (event.target.tagName === "H4") {
-    // let city = event.target.innerText
+    
     document.querySelector('.search-bar').value = cityName
     fetchWeather(cityName)
-    // }
-
-    // const index = favourites.indexOf(5);
-    // if (index < 5) {
-    //     array.splice(index, 5);
-    // }
+    
 }
 
 document.querySelector(".search button").addEventListener("click", getWeatherByCity);
@@ -109,7 +102,7 @@ document
             getWeatherByCity()
 
         }
-        // localStorage.setItem('city', JSON.stringify(favourites));
+        
     })
 
 
